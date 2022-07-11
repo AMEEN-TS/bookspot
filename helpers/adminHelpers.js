@@ -1,6 +1,6 @@
 const db=require("../config/connections");
 const adminData=require("../models/admin");
-const nodeMailer=require("nodeMailer");
+const nodeMailer=require("nodemailer");
 const userData = require("../models/user");
 const bcrypt=require("bcrypt");
 const categories = require("../models/category");
