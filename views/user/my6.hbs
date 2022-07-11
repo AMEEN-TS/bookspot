@@ -1,0 +1,141 @@
+
+  <style>
+    .gradient-custom {
+        /* fallback for old browsers */
+        background: #cd9cf2;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(
+            to top left,
+            rgba(205, 156, 242, 1),
+            rgba(246, 243, 255, 1)
+        );
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(
+            to top left,
+            rgba(205, 156, 242, 1),
+            rgba(246, 243, 255, 1)
+        );
+    }
+
+    .hh-grayBox {
+        background-color: #f8f8f8;
+        margin-bottom: 20px;
+        padding: 35px;
+        margin-top: 20px;
+    }
+    .pt45 {
+        padding-top: 45px;
+    }
+    .order-tracking {
+        text-align: center;
+        width: 33.33%;
+        position: relative;
+        display: block;
+    }
+    .order-tracking .is-complete {
+        display: block;
+        position: relative;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        border: 0px solid #afafaf;
+        background-color: #f7be16;
+        margin: 0 auto;
+        transition: background 0.25s linear;
+        -webkit-transition: background 0.25s linear;
+        z-index: 2;
+    }
+    .order-tracking .is-complete:after {
+        display: block;
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 7px;
+        top: -2px;
+        bottom: 0;
+        left: 5px;
+        margin: auto 0;
+        border: 0px solid #afafaf;
+        border-width: 0px 2px 2px 0;
+        transform: rotate(45deg);
+        opacity: 0;
+    }
+    .order-tracking.completed .is-complete {
+        border-color: #27aa80;
+        border-width: 0px;
+        background-color: #27aa80;
+    }
+    .order-tracking.completed .is-complete:after {
+        border-color: #fff;
+        border-width: 0px 3px 3px 0;
+        width: 7px;
+        left: 11px;
+        opacity: 1;
+    }
+    .order-tracking p {
+        color: #a4a4a4;
+        font-size: 16px;
+        margin-top: 8px;
+        margin-bottom: 0;
+        line-height: 20px;
+    }
+    .order-tracking p span {
+        font-size: 14px;
+    }
+    .order-tracking.completed p {
+        color: #000;
+    }
+    .order-tracking::before {
+        content: "";
+        display: block;
+        height: 3px;
+        width: calc(100% - 40px);
+        background-color: #f7be16;
+        top: 13px;
+        position: absolute;
+        left: calc(-50% + 20px);
+        z-index: 0;
+    }
+    .order-tracking:first-child:before {
+        display: none;
+    }
+    .order-tracking.completed:before {
+        background-color: #27aa80;
+    }
+</style>
+
+
+
+
+
+
+
+
+<div class="my-3 py-5 d-flex bg-light">
+                                <div
+                                    class="order-tracking {% if item.status == 'ordered' or item.status == 'shipped' or item.status == 'out_for_delivery' or item.status == 'delivered' %} completed {% endif %}"
+                                >
+                                    <span class="is-complete"></span>
+                                    <p>Ordered</p>
+                                </div>
+                                <div
+                                    class="order-tracking {% if item.status == 'shipped' or item.status == 'out_for_delivery' or item.status == 'delivered' %} completed {% endif %}"
+                                >
+                                    <span class="is-complete"></span>
+                                    <p>Shipped</p>
+                                </div>
+                                <div
+                                    class="order-tracking {% if item.status == 'delivered' or item.status == 'out_for_delivery' %} completed {% endif %}"
+                                >
+                                    <span class="is-complete"></span>
+                                    <p>Out For Delivery</p>
+                                </div>
+                                <div
+                                    class="order-tracking {% if item.status == 'delivered' %} completed {% endif %}"
+                                >
+                                    <span class="is-complete"></span>
+                                    <p>Delivered</p>
+                                </div>
+                            </div>

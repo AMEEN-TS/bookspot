@@ -1,0 +1,229 @@
+<div class="layout-page " >
+  <div class="content-wrapper">
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+      <nav
+        style="margin: 0; width:100%"
+        class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+        id="layout-navbar"
+      >
+
+        <div class="navbar-nav align-items-center">
+          <div class="nav-item d-flex align-items-center">
+            <i class="bx bx-search fs-4 lh-0"></i>
+            {{!-- <input
+              type="text"
+              class="form-control border-0 shadow-none"
+              placeholder="Search..."
+              aria-label="Search..."
+            /> --}}
+          </div>
+        </div>
+      </nav>
+
+      {{!-- {{#if alert}}
+       <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{alert}}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {{/if}} --}}
+                               {{#if alert}}
+                                        <div class="alert alert-success alert-dismissible fade show container mt-5 col-xl-6  " id="success-alert"
+                                            role="alert">
+                                            <strong>{{alert}}</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        {{/if}}
+      
+    {{!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> --}}
+
+
+      <div class="d-flex">
+        {{!-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product
+            Management /</span>
+          Products</h4> --}}
+          
+        <a
+          type="button"
+          href="/admin/add-category"
+          class="btn btn-primary"
+          style="margin: auto 0 auto auto;"
+        >Add Category</a>
+        {{!-- <a
+          type="button"
+          href="/admin/add-brands"
+          class="btn btn-primary"
+          style="margin: auto 0 auto 1rem;"
+        >Add Brand</a> --}}
+        <a
+          type="button"
+          href="/admin/add-product"
+          class="btn btn-primary"
+          style="margin: auto 0 auto 1rem;"
+        >Add Product</a>
+      </div>
+
+      <div class="card">
+        <h5 class="card-header">Product Details</h5>
+        <div class="table">
+          <table class="table" id="userTable">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Stock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each products}}
+
+                <tr>
+                  <td><img
+                      style="width:90px;"
+                      src="/image_upload/{{this.image.0.image1}}"
+                      alt=""
+                    />
+                  </td>
+                  <td><strong> {{this.productname}}</strong></td>
+                  <td style="font-size: 12px;">
+                    BookName:
+                    {{this.productname}}
+                    <br />
+                    author:
+                    {{this.author}}
+                    <br />
+                    category:
+                    {{this.category.category}}
+                    <br />
+                    sub-category
+                    {{this.subcategory.subcategory}}
+                    <br />
+                    language:
+                    {{this.language}}
+                    <br />
+                    publisher:
+                    {{this.publisher}}
+                  </td>
+                  <td>{{this.price}}</td>
+                  <td>{{this.discount}}%</td>
+                  <td>{{this.stock}}</td>
+
+                  <td>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn p-0 dropdown-toggle hide-arrow"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a
+                          class="dropdown-item"
+                          href="/admin/edit-products/{{this._id}}"
+                        ><i class="bx bx-edit-alt me-1"></i>
+                          Edit</a>
+                        <a
+                          class="dropdown-item"
+                          href="/admin/deleteProduct/{{this._id}}"
+                          onclick="return confirm('Are you sure to delete {{this.productname}}?')" --}}
+                          
+                        ><i class="bx bx-trash me-1"></i>
+                          Delete</a>
+                      </div>
+
+
+
+
+
+                    </div>
+                  </td>
+                </tr>
+
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <hr />
+
+    </div>
+  </div>
+</div>
+
+{{! ----Pagination---- }}
+
+<nav aria-label="Page navigation">
+  <ul class="pagination pagination-sm justify-content-center">
+    <li class="page-item prev">
+      <a class="page-link" href="javascript:void(0);"><i
+          class="tf-icon bx bx-chevrons-left"
+        ></i></a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="javascript:void(0);">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);">2</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);">4</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="javascript:void(0);">5</a>
+    </li>
+    <li class="page-item next">
+      <a class="page-link" href="javascript:void(0);"><i
+          class="tf-icon bx bx-chevrons-right"
+        ></i></a>
+    </li>
+  </ul>
+</nav>
+
+
+
+
+<script>
+    function searchTable() {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("userTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+</script>

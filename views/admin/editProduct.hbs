@@ -1,0 +1,249 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="layout-page mt-5">
+    <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            {{!-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Manage
+                    Products / Products /</span>
+                Edit Products</h4> --}}
+
+            <!-- Basic Layout & Basic with Icons -->
+            <div class="row">
+                <!-- Basic Layout -->
+                <div class="col-xxl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="mb-0">Edit Products</h5>
+                            <a href="/admin/viewProducts" class="btn btn-primary">Go Back</a>
+                        </div>
+                        <div class="card-body">
+                            <form action="/admin/edit-products/{{product._id}}" method="post"
+                                enctype="multipart/form-data">
+
+                                {{!-- ----Product Name---- --}}
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Product Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="productname" value="{{product.productname}}"
+                                            class="form-control" id="basic-default-name"
+                                            placeholder="Enter Product Name" required/>
+                                    </div>
+                                </div>
+
+                                {{!-- ----Brand Name---- --}}
+
+                                {{!-- <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Brand</label>
+                                    <div class="col-sm-10">
+                                        <select name="Brand" class="form-control">
+                                            <option value="{{product.Brand}}" selected>Brand Name</option>
+                                            {{#each brands}}
+                                            <option value="{{this._id}}">{{this.Brand_Name}}</option>
+                                            {{/each}}
+
+                                        </select>
+                                    </div>
+                                </div> --}}
+
+                                {{!-- ----Category---- --}}
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Category</label>
+                                    <div class="col-sm-10">
+                                        <select name="category" class="form-control">
+                                            <option value="{{product.category}}" selected>Category</option>
+                                            {{#each categories}}
+                                            <option value="{{this._id}}">{{this.category}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {{!-- ----Subcategory---- --}}
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label"
+                                        for="basic-default-company">Subcategory</label>
+                                    <div class="col-sm-10">
+                                        <select name="subcategory" class="form-control">
+                                            <option value="{{product.subcategory}}" selected>Subcategory</option>
+                                            {{#each subcategories}}
+                                            <option value="{{this._id}}">{{this.subcategory}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {{!-- Author --}}
+
+                                 <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Author</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="author" value="{{product.author}}" class="form-control"
+                                            id="basic-default-company" placeholder="Author" required/>
+                                    </div>
+                                </div>
+
+                                {{!-- publisher --}}
+
+                                 <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">publisher</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="publisher" value="{{product.publisher}}" class="form-control"
+                                            id="basic-default-company" placeholder="Publisher" required/>
+                                    </div>
+                                </div>
+
+                                {{!-- Binding --}}
+
+                               
+                                
+                            
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Binding</label>
+                                    <div class="col-sm-10">
+                                       <select id="inputState" name="binding" class="form-control" required>
+                                                <option  value="{{product.binding}}"selected>Choose binding</option>
+                                                <option>Paperback</option>
+                                                <option>Hardcover</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                
+                                {{!-- Pages --}}
+
+                                    <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Pages</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="pages" value="{{product.pages}}" class="form-control"
+                                            id="basic-default-company" placeholder="Pages" required/>
+                                    </div>
+                                </div>
+                                
+                                {{!-- Language --}}
+
+                                    <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Language</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="language" value="{{product.Color}}" class="form-control"
+                                            id="basic-default-company" placeholder="Language" required/>
+                                    </div>
+                                </div>
+
+
+                                {{!-- ----Price---- --}}
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Maximum Retail
+                                        Price</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="price" value="{{product.price}}" class="form-control"
+                                            id="basic-default-company" placeholder="price" required/>
+                                    </div>
+                                </div>
+
+                                {{!-- ----Discount---- --}}
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Discount </label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="discount" value="{{product.discount}}"
+                                            class="form-control" id="basic-default-company"
+                                            placeholder="Discount in Percentage" required/>
+                                    </div>
+                                </div>
+
+                                {{!-- ----Stock---- --}}
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Stock</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="stock" value="{{product.stock}}" class="form-control"
+                                            id="basic-default-company" placeholder="Stock Details" required/>
+                                    </div>
+                                </div>
+
+                             
+
+                                {{!-- ----Image1---- --}}
+
+                                
+
+                                  <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-phone">Image 1</label>
+                                    <div class="col-sm-10">
+                                        <img src="/image_upload/{{product.image.[0].image1}}" alt="" srcset=""
+                                            style="width: 100px;height: auto; " class="mb-2" id="imgView" />
+                                        <input type="file" name="image1" id="basic-default-images"
+                                            class="form-control image" onchange="viewImage(event)"/>
+                                            <input type="file" id="defaultRegisterFormLastName" class="form-control"
+                                            style="display: none;" name="image1" value="{{product.image.[0].image1}}" /> 
+
+
+                                             {{!-- <img src="/image_upload/{{product.image.[0].image1}}" alt="" srcset="" style="width: 100px;height: auto; " class="mb-2"
+                                                id="imgView">
+                                            <input type="file" id="defaultRegisterFormFirstName" class="form-control" placeholder="image" name="image1"
+                                                onchange="viewImage(event)" /> --}}
+
+                                        {{!-- <div class="form-row mb-4">
+                                            <div class="col"> --}}
+                                                <!-- image -->
+                                                {{!-- <img src="/image_upload/{{product.image.[0].image1}}" alt="" srcset="" style="width: 100px;height: auto; " class="mb-2"
+                                                    id="imgView">
+                                                <input type="file" class="form-control" placeholder="image" name="image" onchange="viewImage(event)"> --}}
+                                            {{!-- </div>
+                                        </div> --}}
+
+                                        
+
+                                    </div>
+                                </div>
+
+                               
+
+                               
+
+                            
+
+                                {{!-- ----Image4---- --}}
+
+                                {{!-- <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-phone">Image 4</label>
+                                    <div class="col-sm-10">
+                                        <img src="/uploads/{{product.Images.[0].image4}}" alt="" srcset=""
+                                            style="width: 100px;height: auto; " class="mb-2" id="imgView" />
+                                        <input type="file" name="image4" id="basic-default-images"
+                                            class="form-control image"/>
+                                             <input type="file" id="defaultRegisterFormLastName" class="form-control"
+                                            style="display: none;" name="image1" value="{{product.Images.[0].image3}}" />
+                                    </div>
+                                </div> --}}
+
+                                {{!-- ----Submission---- --}}
+
+                                <div class="row justify-content-end">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Edit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Basic with Icons -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script>
+    function viewImage(event)=> {
+      document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+
+  </script>
+  <!-- MDB -->
+ 
+ <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

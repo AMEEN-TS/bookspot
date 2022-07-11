@@ -1,0 +1,426 @@
+ <link rel="stylesheet" href="/aranoz/css/bootstrap.min.css">
+  <!-- animate CSS -->
+  <link rel="stylesheet" href="/aranoz/css/animate.css">
+  <!-- owl carousel CSS -->
+  <link rel="stylesheet" href="/aranoz/css/owl.carousel.min.css">
+  <!-- nice select CSS -->
+  <link rel="stylesheet" href="/aranoz/css/nice-select.css">
+  <!-- font awesome CSS -->
+  <link rel="stylesheet" href="/aranoz/css/all.css">
+  <!-- flaticon CSS -->
+  <link rel="stylesheet" href="/aranoz/css/flaticon.css">
+  <link rel="stylesheet" href="/aranoz/css/themify-icons.css">
+  <!-- font awesome CSS -->
+  <link rel="stylesheet" href="/aranoz/css/magnific-popup.css">
+  <!-- swiper CSS -->
+  <link rel="stylesheet" href="/aranoz/css/slick.css">
+  <link rel="stylesheet" href="/aranoz/css/price_rangs.css">
+  <!-- style CSS -->
+  <link rel="stylesheet" href="/aranoz/css/style.css">
+  {{!-- font awesome --}}
+
+  <script src="https://kit.fontawesome.com/a04c146c8c.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+
+  <section class="checkout_area padding_top">
+    <div class="container">
+      <div class="returning_customer mb-4 mt-4 ">
+              <div class="check_title">
+                <h5 style="color:darkmagenta">
+                  please select a address
+                </h5>
+              </div>
+            </div>
+
+                 <div class=" container-fluid content-row  mb-4 ">
+
+              <div class="row mb-4 mt-4 ">
+              {{#each Addresses.address}}
+           
+  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+    
+    <div class="card rounded h-100 ">
+
+      <h3></h3>
+      <p style="color:black">{{this.fname}} {{this.lname}}, {{this.house}},  {{this.towncity}}, {{this.district}}, {{this.state}}, Pincode: {{this.pincode}}</p><P style="color:black">Email: {{this.email}}</P>
+      <p style="color:black">Mobile: {{this.mobile}}</p>
+
+      <button class="btn btn-primary" onclick="autofill('{{this.fname}}','{{this.mobile}}','{{this.email}}','{{this.house}}','{{this.towncity}}','{{this.district}}','{{this.state}}','{{this.pincode}}')">use this Address</button>
+
+    </div>
+    
+  </div>
+    {{/each}}
+    </div>
+    </div>
+
+
+      <div class="billing_details">
+        <div class="row">
+          <div class="billing_details ">
+            <div class="row mt-3">
+              <div class="col-lg-8">
+                <h5 style="color:darkmagenta">
+                  or fill the form Below
+                  {{!-- <a href="#">Click here to login</a> --}}
+                </h5>
+                {{!-- <h2>or fill the form Below Billing Details</h2> --}}
+                <form class="row contact_form" action="#" id="checkoutForm" method="post" novalidate="novalidate">
+                  <div class="col-md-12 form-group p_star me-2" style="border: 1px solid #eee;">
+
+                    <input type="text" class="form-control" id="fname" name="name" placeholder="Full name" />
+
+                    <input type="text" class="form-control" id="#" name="userId" value="{{Addresses._id}}" hidden />
+                  </div>
+                  {{!-- <div class="col-md-6 form-group p_star me-2" style="border: 1px solid #eee;">
+                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name" />
+                  </div> --}}
+                  {{!-- <div class="col-md-6 form-group p_star">
+                    <input type="text" class="form-control" id="lname" name="name" placeholder="Last name" />
+                  </div> --}}
+                  <div class="col-md-6 form-group p_star" style="border: 1px solid #eee;">
+                    <input type="text" class="form-control" id="mobile" name="number" placeholder="Phone number" />
+                  </div>
+                  <div class="col-md-6 form-group p_star" style="border: 1px solid #eee;">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email Address" />
+                  </div>
+
+                  <div class="col-md-12 form-group " style="border: 1px solid #eee;">
+                    <input type="text" class="form-control" id="house" name="house"
+                      placeholder="House Name or Company name" />
+                  </div>
+
+                  {{!-- <div class="col-md-12 form-group p_star">
+                    <select class="country_select" name="country">
+                      <option>Country</option>
+                      <option>India</option>
+                      <option>America</option>
+                      <option>Pakistan</option>
+                    </select>
+                  </div> --}}
+                  {{!-- <div class="col-md-12 form-group p_star" style="border: 1px solid #eee;">
+                    <input type="text" class="form-control" id="localplace" name="localplace" placeholder="Locality" />
+                  </div> --}}
+                  {{!-- <div class="col-md-12 form-group p_star">
+                    <input type="text" class="form-control" id="add2" name="add2" placeholder="Address line 02" />
+                  </div> --}}
+                  <div class="col-md-12 form-group p_star" style="border: 1px solid #eee;">
+                    <input type="text" class="form-control" id="town" name="town" placeholder="Town/City" />
+                  </div>
+                  <div class="col-md-12 form-group p_star" style="border: 1px solid #eee">
+                    {{!-- <select class="country_select" name="district">
+                      <option>District</option>
+                      <option>Malappuram</option>
+                      <option>Calicut</option>
+                      <option>Thrissur</option>
+                    </select> --}}
+                    <input type="text" class="form-control" id="district" name="district" placeholder="District" />
+                  </div>
+                  <div class="col-md-12 form-group" style="border: 1px solid #eee">
+                    <input type="text" class="form-control" id="state" name="state" placeholder="State" />
+                  </div>
+                  <div class="col-md-12 form-group" style="border: 1px solid #eee;">
+                    <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Pincode"
+                      value="" />
+                  </div>
+                  {{!-- <div class="col-md-12 form-group">
+                    <div class="creat_account">
+                      <input type="checkbox" id="f-option2" name="selector" />
+                      <label for="f-option2">Create an account?</label>
+                    </div>
+                  </div> --}}
+                  {{!-- <div class="col-md-12 form-group">
+                    <div class="creat_account">
+                      <h3>Shipping Details</h3>
+                      <input type="checkbox" id="f-option3" name="selector" />
+                      <label for="f-option3">Ship to a different address?</label>
+                    </div>
+                    <textarea class="form-control" name="message" id="message" rows="1"
+                      placeholder="Order Notes"></textarea>
+                  </div> --}}
+                  {{!--
+                </form> --}}
+              </div>
+              <div class="col-lg-4">
+                <div class="order_box">
+                  <h2>Your Order</h2>
+                  <ul class="list">
+                    <li>
+                      <a style="color:darkmagenta" href="#">Products
+                          <span>Total</span> 
+                      </a>
+                    </li>
+                    {{#each cartItems.products}}
+
+                    <li>
+                      <a href="#">{{this.pro_Id.productname}}
+                        <span class="middle">x {{this.quantity}} </span>
+                        <span class="last">Rs. {{this.subTotal}}</span>
+
+                      </a>
+                    </li>
+
+                    {{/each}}
+
+                    {{!-- <li>
+                      <a href="#">Fresh Tomatoes
+                        <span class="middle">x 02</span>
+                        <span class="last">$720.00</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">Fresh Brocoli
+                        <span class="middle">x 02</span>
+                        <span class="last">$720.00</span>
+                      </a>
+                    </li> --}}
+                  </ul>
+                  <ul class="list list_2">
+                    <li>
+                      <a href="#">Subtotal
+                        <span>Rs. {{netTotal}}</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">Shipping
+                        <span style="color:darkred"> Rs. {{deliveryCharge}}</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">Total
+                        <span> Rs. {{grandTotal}}</span>
+                      </a>
+                    </li>
+                  </ul>
+
+
+                  {{!-- <p>Please select your Payment Method:</p>
+                    <input type="radio" id="Cod" name="PaymentMethod" value="Cash On Delivery">
+                    <label for="Cod">Cash On Delivery</label><br>
+                    <input type="radio" id="Online" name="PaymentMethod" value="Online Payment">
+                    <label for="Online">Online Payment</label><br> --}}
+
+
+                  <div class="payment_item">
+                    <div class="radion_btn">
+                      <input type="radio" id="cod" name="paymentMethod" value="cod" />
+                      <label for="cod">Cash on Delivery</label>
+                      <div class="check"></div>
+                   
+                  <div class="payment_item ">
+                    <div class="radion_btn">
+                      <input type="radio" id="razorpay" name="paymentMethod" value="online" />
+                      <label for="razorpay">Online Payment</label>
+                      {{!-- <img src="/img1/product/single-product/card.jpg" alt="" /> --}}
+                      <div class="check"></div>
+                   
+                  {{!-- <div class="creat_account">
+                    <input type="checkbox" id="f-option4" name="selector" />
+                    <label for="f-option4">I've read and accept the </label>
+                    <a href="#">terms & conditions*</a>
+                  </div> --}}
+                  <button class="btn_3" type="submit">Proceed to Pay</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+  </section>
+
+  <!--::footer_part start::-->
+  <footer class="footer_part">
+    <div class="container">
+      <div class="row justify-content-around">
+        <div class="col-sm-6 col-lg-2">
+          <div class="single_footer_part">
+            <h4>Top Products</h4>
+            <ul class="list-unstyled">
+              <li><a href="">Managed Website</a></li>
+              <li><a href="">Manage Reputation</a></li>
+              <li><a href="">Power Tools</a></li>
+              <li><a href="">Marketing Service</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+          <div class="single_footer_part">
+            <h4>Quick Links</h4>
+            <ul class="list-unstyled">
+              <li><a href="">Jobs</a></li>
+              <li><a href="">Brand Assets</a></li>
+              <li><a href="">Investor Relations</a></li>
+              <li><a href="">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+          <div class="single_footer_part">
+            <h4>Features</h4>
+            <ul class="list-unstyled">
+              <li><a href="">Jobs</a></li>
+              <li><a href="">Brand Assets</a></li>
+              <li><a href="">Investor Relations</a></li>
+              <li><a href="">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+          <div class="single_footer_part">
+            <h4>Resources</h4>
+            <ul class="list-unstyled">
+              <li><a href="">Guides</a></li>
+              <li><a href="">Research</a></li>
+              <li><a href="">Experts</a></li>
+              <li><a href="">Agencies</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <div class="single_footer_part">
+            <h4>Newsletter</h4>
+            <p>Heaven fruitful doesn't over lesser in days. Appear creeping
+            </p>
+            <div id="mc_embed_signup">
+              <form target="_blank"
+                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                method="get" class="subscribe_form relative mail_part">
+                <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
+                  class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
+                  onblur="this.placeholder = ' Email Address '">
+                <button type="submit" name="submit" id="newsletter-submit"
+                  class="email_icon newsletter-submit button-contactForm">subscribe</button>
+                <div class="mt-10 info"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="copyright_part">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="copyright_text">
+              <P>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                  target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              </P>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="footer_icon social_icon">
+              <ul class="list-unstyled">
+                <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
+                <li><a href="#" class="single_social_icon"><i class="fab fa-behance"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+ <script>
+      function autofill(fname,mobile,email,house,town,district,state,pincode){
+        document.getElementById('fname').value = fname
+				document.getElementById('mobile').value = mobile
+        document.getElementById('email').value = email
+        document.getElementById('house').value = house
+        {{!-- document.getElementById('localplace').value = localplace --}}
+				document.getElementById('town').value = town
+				document.getElementById('district').value = district
+				document.getElementById('state').value = state
+				document.getElementById('pincode').value = pincode
+				
+				
+      }
+    </script> 
+  
+  {{!-- razorpay --}}
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  {{!-- razorpay --}}
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $('#checkoutForm').submit((e) => {
+      e.preventDefault()
+      $.ajax({
+        url: '/placeOrder',
+        method: 'post',
+        data: $('#checkoutForm').serialize(),
+        success: (response) => {
+          if (response.codSuccess) {
+            location.href = '/viewOrderDetails'
+          } else {
+            razorpayPayment(response)
+          }
+        }
+      })
+    });
+
+    function razorpayPayment(order) {
+      alert(order.amount)
+      var options = {
+        "key": "rzp_test_84tvlHhdgoF507", // Enter the Key ID generated from the Dashboard
+        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Book_Spot",
+        "description": "Test Transaction",
+        "image": "\images\Book_spot\logo.jpg",
+        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response) {
+
+          verifyPayment(response,order)
+        },
+        "prefill": {
+          "name": "Gaurav Kumar",
+          "email": "gaurav.kumar@example.com",
+          "contact": "9999999999"
+        },
+        "notes": {
+          "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+          "color": "#3399cc"
+        }
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+    
+    
+      alert('Payment processing')
+      $.ajax({
+        url: '/verifyPayment',
+        data: {
+          payment,
+          order
+        },
+        method: "post",
+        success: (response) => {
+      
+          alert("payment success")
+          if (response.status) {
+            location.href = '/viewOrderDetails'
+          } else {
+            alert('payment failed')
+          }
+
+        }
+      })
+    }
+  </script>
+
+  
