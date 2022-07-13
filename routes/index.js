@@ -472,6 +472,7 @@ router.get("/orderTracking/:id",(req,res)=>{
   })
 });
 router.get("/product",async(req,res)=>{
+  console.log("**")
   let user = req.session.user;
   const products = await adminHelpers.getProducts();
   res.render("user/shop",{products,user})
