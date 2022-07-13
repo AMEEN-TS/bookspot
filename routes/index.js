@@ -483,11 +483,6 @@ router.get("/product",async(req,res)=>{
 
 
 
-router.get("/my2",(req,res)=>{
-  res.render("user/my6",)
-});
-
-
 
 
 module.exports = router;
