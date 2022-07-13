@@ -23,13 +23,17 @@ const verifyLogin = (req, res, next) => {
   }
 };
 
-
+let filterResult;
 
 router.get('/', async function (req, res, next) {
   let user = req.session.user;
   const products = await adminHelpers.getProducts();
+  let cartCount = null;
+  if (user) {
+   cartCount =await userHelpers.getCartCount(req.session.user._id);
+  }
   
-  res.render('user/index', { user,products });
+  res.render('user/index', { user,products,cartCount });
 });
 
 router.get('/login', function (req, res, next) {
@@ -445,7 +449,8 @@ router.get("/add-Towishlist/:id",verifyLogin, (req, res, next) => {
 router.get("/wishlist",verifyLogin,async(req,res)=>{
   let user = req.session.user;
   const wishlist = await userHelpers.getwishlist(req.session.user);
-  res.render("user/wishList",{wishlist,user})
+  let wishlistcount = await userHelpers.getwishlistcount(user._id);
+  res.render("user/wishList",{wishlist,user,wishlistcount})
 
 });
 router.post("/deletewishlist", async (req, res) => {
@@ -466,6 +471,11 @@ router.get("/orderTracking/:id",(req,res)=>{
     res.render("user/trackOrder",{user,order,ordered_on})
   })
 });
+router.get("/product",async(req,res)=>{
+  let user = req.session.user;
+  const products = await adminHelpers.getProducts();
+  res.render("user/shop",{products,user})
+})
 
 
 
@@ -474,7 +484,7 @@ router.get("/orderTracking/:id",(req,res)=>{
 
 
 router.get("/my2",(req,res)=>{
-  res.render("user/my6")
+  res.render("user/my6",)
 });
 
 

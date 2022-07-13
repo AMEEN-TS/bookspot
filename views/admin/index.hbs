@@ -233,16 +233,16 @@
                                 <h6 class="mb-0">Worldwide Sales</h6>
                                 <a href="">Show All</a>
                             </div>
-                            <canvas id="worldwide-sales"></canvas>
+                            <canvas id="mychart"></canvas>
                         </div>
                     </div>
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Salse & Revenue</h6>
+                                <h6 class="mb-0">Top Products</h6>
                                 <a href="">Show All</a>
                             </div>
-                            <canvas id="salse-revenue"></canvas>
+                            <canvas id="brand"></canvas>
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@
 
 
             <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
+            {{!-- <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Recent Salse</h6>
@@ -320,12 +320,12 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- Recent Sales End -->
 
 
             <!-- Widgets Start -->
-            <div class="container-fluid pt-4 px-4">
+            {{!-- <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-md-6 col-xl-4">
                         <div class="h-100 bg-light rounded p-4">
@@ -442,7 +442,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- Widgets End -->
 
 
@@ -484,6 +484,94 @@
 
     <!-- Template Javascript -->
     <script src="/admin/js/main.js"></script>  --}}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+        async function forHome(){ 
+            
+    var totalAmount = []
+    var totalDate = []
+    console.log('success1');
+    $.ajax({
+        url:'/admin/getData',
+        method:'post',
+        success:(response)=>{
+            {{!-- document.getElementById('totalOrder').innerHTML=response.orderCount
+            document.getElementById('totalAmountPaid').innerHTML='Rs '+response.totalArray --}}
+            {{!-- document.getElementById('totalAmountRefund').innerHTML='Rs '+response.totalAmountRefund
+            document.getElementById('revenue').innerHTML='Rs '+ (parseInt(response.totalAmountPaid)-parseInt(response.totalAmountRefund)) --}}
+
+            
+            
+console.log(totalAmount,'toatalAmout');
+
+
+            console.log(response,'reponse');
+            var ctx = document.getElementById('mychart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+            
+                // The data for our dataset
+                data: {
+                    labels:response.dateArray,
+                    datasets: [{
+                        label: "last week dataset",
+                        backgroundColor: 'rgb(128, 204, 255)',
+                        borderColor: 'rgb(128, 204, 255)',
+                        borderWidth:1,
+                        data:response.totalArray,
+                    }]
+                },
+            
+                // Configuration options go here
+                options: {
+                  tooltips:{
+                    mode:'index'
+                  },
+                  
+                }
+            });
+
+            var ctxs = document.getElementById('brand').getContext('2d');
+            var chart = new Chart(ctxs, {
+                // The type of chart we want to create
+                type: 'doughnut',
+            
+                // The data for our dataset
+                data: {
+                    labels:response.brandArray,
+                    datasets: [{
+                        label: "brand wise dataset",
+                        backgroundColor: ['rgb(168,114,154)','rgb(95,183,255)','rgb(255,63,108)','rgb(255,159,32)','rgb(102,191,97)','rgb(167,215,197)'],
+                        borderColor:  ['rgb(168,114,154)','rgb(95,183,255)','rgb(255,63,108)','rgb(255,159,32)','rgb(102,191,97)','rgb(167,215,197)'],
+                        data:response.sumArray,
+                    }]
+                },
+            
+                // Configuration options go here
+                options: {
+                  tooltips:{
+                    mode:'index'
+                  }
+                }
+            });
+        }
+        })
+
+        
+ 
+}
+
+forHome()
+    </script>
+
+
+
+
+
+
+
 </body>
 
 </html>

@@ -6,6 +6,7 @@ const userHelpers = require("../helpers/userHelpers");
 const storage = require("../middleware/multer");
 const { response } = require('../app');
 const async = require('hbs/lib/async');
+const  moment = require('moment'); 
 
 
 /* GET users listing. */
@@ -267,9 +268,68 @@ router.get("/deleteCoupons/:id",(req,res)=>{
       res.redirect("/admin/viewCoupon") 
     }) 
  
-})
+});
 
 
+router.get("/order", (req, res) => {
+    adminHelpers.allorders().then((response) => {
+      const allorders = response;
+      allorders.forEach((element) => {
+        element.ordered_on = moment(element.ordered_on).format("MMM Do YY");
+      });
+      res.render("admin/orderview", { layout:"adminLayout", allorders });
+    });
+  });
+  router.get("/viewOrderProducts/:id", (req, res) => {
+    adminHelpers.orderdetails(req.params.id).then((response) => {
+      const order = response;
+      const ordered_on = moment(order.ordered_on).format("MMM Do YY");
+      res.render("admin/orderdetails", { ordered_on,  order, layout:"adminLayout"});
+    });
+  });
+
+  router.post("/changeOrderStatus", (req, res) => {
+    adminHelpers.changeOrderStatus(req.body).then((response) => {
+      res.json({ modified: true });
+    });
+  });
+
+  router.post("/getData", async (req, res) => {
+    const date = new Date(Date.now());
+    const month = date.toLocaleString("default", { month: "long" });
+    adminHelpers.salesReport(req.body).then((data) => {
+      // let pendingAmount = data.pendingAmount;
+      let salesReport = data.salesReport;
+      let brandReport = data.brandReport;
+      // let orderCount = data.orderCount;
+      // let totalAmountPaid = data.totalAmountPaid;
+      // let totalAmountRefund = data.totalAmountRefund;
+       console.log(month._id)
+      let dateArray = [];
+      let totalArray = [];
+      salesReport.forEach((s) => {
+        dateArray.push(`${month}-${s._id} `);
+        totalArray.push(s.total);
+      });
+      console.log(salesReport)
+      let brandArray = [];
+      let sumArray = [];
+      brandReport.forEach((s) => {
+        brandArray.push(s._id);
+        sumArray.push(s.totalAmount);
+      });
+      res.json({
+        // totalAmountRefund,
+        dateArray,
+        totalArray,
+        brandArray,
+        sumArray,
+        // orderCount,
+        // totalAmountPaid,
+        // pendingAmount,
+      });
+    });
+  });
 
 
 

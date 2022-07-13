@@ -238,7 +238,7 @@ module.exports={
             await cart
               .findOneAndUpdate(
                 { user_Id: user_Id },
-                { $push: { products: { pro_Id: pro_Id, price: product.price } } }
+                { $push: { products: { pro_Id: pro_Id, price: product.price ,productName:product.productname} } }
               )
               .then(async (res) => {
                 resolve({ msg: '"Added", count: res.product.length + 1 ' });
@@ -247,7 +247,7 @@ module.exports={
         } else {
           const newcart = new cart({
             user_Id: user_Id,
-            products: { pro_Id: pro_Id, price: product.price },
+            products: { pro_Id: pro_Id, price: product.price, productName:product.productname},
           });
           await newcart.save((err, result) => {
             if (err) {
@@ -511,6 +511,7 @@ module.exports={
      let orderList = await orderModel
         .find({ user_Id: userId })
         .populate("product.pro_Id")
+        .sort({ _id: -1 })
         .lean();
       resolve(orderList);
     });
@@ -664,6 +665,67 @@ module.exports={
         
         resolve(orderdetails)
     })   
+  },
+
+  searchFilter: (brandFilter, categoryFilter, price) => {
+    return new Promise(async (resolve, reject) => {
+      let result;
+      if (brandFilter && categoryFilter) {
+        let brandid = mongoose.Types.ObjectId(brandFilter);
+        let categoryid = mongoose.Types.ObjectId(categoryFilter);
+        result = await productData.aggregate([
+          {
+            $match: { Brand: brandid },
+          },
+          {
+            $match: { Category: categoryid },
+          },
+          {
+            $match: { Price: { $lt: price } },
+          },
+        ]);
+      } else if (brandFilter) {
+        let brandid = mongoose.Types.ObjectId(brandFilter);
+        result = await productData.aggregate([
+          {
+            $match: { Brand: brandid },
+          },
+          {
+            $match: { Price: { $lt: price } },
+          },
+        ]);
+      } else if (categoryFilter) {
+        let categoryid = mongoose.Types.ObjectId(categoryFilter);
+        result = await productData.aggregate([
+          {
+            $match: { Category: categoryid },
+          },
+          {
+            $match: { Price: { $lt: price } },
+          },
+        ]);
+      } else {
+        result = await productData.aggregate([
+          {
+            $match: { Price: { $lt: price } },
+          },
+        ]);
+      }
+      resolve(result);
+    });
+  },
+
+  getwishlistcount: (userid) => {
+    return new Promise(async (resolve, reject) => {
+      const user = await wishlistmodel.findOne({ user: userid });
+      if (user) {
+        count = user.products.length;
+        resolve(count);
+      } else {
+        let count = 0;
+        resolve(count);
+      }
+    });
   },
 
 

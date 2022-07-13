@@ -761,7 +761,7 @@
                             </div>
                         </div>
                         <div class="float-end">
-                            <button type="button" class="btn btn-primary" onclick="Editaddress('{{this.fname}}','{{this.mobile}}','{{this.email}}','{{this.house}}','{{this.towncity}}','{{this.district}}','{{this.state}}','{{this.pincode}}','{{this.lname}}')">Edit Address</button>
+                            {{!-- <button type="button" class="btn btn-primary" onclick="Editaddress('{{this.fname}}','{{this.mobile}}','{{this.email}}','{{this.house}}','{{this.towncity}}','{{this.district}}','{{this.state}}','{{this.pincode}}','{{this.lname}}')">Edit Address</button> --}}
                             {{!-- <a href="/editAddress/{{this._id}}" class="btn btn-primary ">Edit Address</a> --}}
                             {{!-- <a href="/deleteAddress/{{this._id}}" class="btn btn-danger ">Delete Address</a> --}}
                             <button type="button" class="btn btn-danger" onclick="removeAddress('{{this._id}}')">Delete Address</button>
@@ -776,7 +776,7 @@
                  </div>
 
             </div>
-            <div class="editaddress hide">
+            {{!-- <div class="editaddress hide">
                 <form method="post" action="/editAddress/{{Addresses.address._id}}" class="colorlib-form" id="add-new-address">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -852,7 +852,7 @@
                                         </div>
                                     </div>
                                 </form>
-            </div>
+            </div> --}}
                       {{!-- <form method="post" action="/addAddress/{{user._id}}" class="colorlib-form" id="add-new-address">
                                     <div class="row">
                                         <div class="col-md-6">

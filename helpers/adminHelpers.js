@@ -10,6 +10,7 @@ const async = require("hbs/lib/async");
 const { reject, promise } = require("bcrypt/promises");
 const res = require("express/lib/response");
 const couponmodel = require("../models/Coupon");
+const orderModel = require("../models/order");
 
 
 
@@ -274,6 +275,134 @@ module.exports={
         const removecoupon= await couponmodel.findByIdAndDelete({_id:proId}) 
         resolve(removecoupon) 
       }) 
-    }
+    },
+
+    allorders: () => {
+      return new Promise(async (resolve, reject) => {
+        const allorders = await orderModel
+          .find({})
+          .populate("product.pro_Id")
+          .sort({ _id: -1 })
+          .lean();
+        resolve(allorders);
+      });
+    },
+
+    orderdetails: (orderID) => {
+      return new Promise(async (resolve, reject) => {
+        const orderdetails = await orderModel
+          .findOne({ _id: orderID })
+          .populate("product.pro_Id")
+          .lean();
+        resolve(orderdetails);
+      });
+    },
+
+    changeOrderStatus: (data) => {
+      return new Promise(async (resolve, reject) => {
+        const state = await  orderModel.findOneAndUpdate(
+          { _id: data.orderId, "product._id": data.proId },
+          {
+            $set: {
+              "product.$.status": data.orderStatus,
+            },
+          }
+        );
+        resolve();
+      });
+    },
+
+    salesReport: (data) => {
+      let response = {};
+      let { startDate, endDate } = data;
+      let d1, d2, text;
+      if (!startDate || !endDate) {
+        d1 = new Date();
+        d1.setDate(d1.getDate() - 7);
+        d2 = new Date();
+        text = "For the Last 7 days";
+      } else {
+        d1 = new Date(startDate);
+        d2 = new Date(endDate);
+        text = `Between ${startDate} and ${endDate}`;
+      }
+      const date = new Date(Date.now());
+      const month = date.toLocaleString("default", { month: "long" });
+      return new Promise(async (resolve, reject) => {
+        let salesReport = await orderModel.aggregate([
+          {
+            $match: {
+              ordered_on: {
+                $lt: d2,
+                $gte: d1,
+              },
+            },
+          },
+          {
+            $match: { payment_status: "placed" },
+          },
+          {
+            $group: {
+              _id: { $dayOfMonth: "$ordered_on" },
+              total: { $sum: "$grandTotal" },
+            },
+          },
+        ]);
+        let brandReport = await orderModel.aggregate([
+          {
+            $match: { payment_status: "placed" },
+          },
+          {
+            $unwind: "$product",
+          },
+          {
+            $project: {
+              brand: "$product.productName",
+              quantity: "$product.quantity",
+            },
+          },
+    
+          {
+            $group: {
+              _id: "$brand",
+              totalAmount: { $sum: "$quantity" },
+            },
+          },
+          { $sort: { quantity: -1 } },
+          { $limit: 5 },
+        ]);
+        // let orderCount = await ordermodel
+        //   .find({ date: { $gt: d1, $lt: d2 } })
+        //   .count();
+        // let totalAmounts = await orderModel.aggregate([
+        //   {
+        //     $match: { payment_status: "placed" },
+        //   },
+        //   {
+        //     $group: {
+        //       _id: null,
+        //       totalAmount: { $sum: "$grandTotal" },
+        //     },
+        //   },
+        // ]);
+        // let totalAmountRefund = await orderModel.aggregate([
+        //   {
+        //     $match: { status: "Order placed" },
+        //   },
+        //   {
+        //     $group: {
+        //       _id: null,
+        //       totalAmount: { $sum: "$reFund" },
+        //     },
+        //   },
+        // ]);
+        response.salesReport = salesReport;
+        response.brandReport = brandReport;
+        // response.orderCount = orderCount;
+        // response.totalAmountPaid = totalAmounts.totalAmount;
+        // response.totalAmountRefund = totalAmountRefund.totalAmount;
+        resolve(response);
+      });
+    },
 
 };
