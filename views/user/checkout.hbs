@@ -467,7 +467,7 @@
 
   <script>
 			function couponApply() {
-        alert("coupon")
+        {{!-- alert("coupon") --}}
 				let couponCode = document.getElementById('couponInput').value
 				let couponTotal = document.getElementById('couponTotal').value
         let DeliveryCharges=document.getElementById('DeliveryCharges').value
@@ -482,21 +482,21 @@
 					},
 					method: 'post',
 					success: (response) => {
-            alert(response)
+            {{!-- alert(response) --}}
 						if (response.couponSuccess) {  
 							let oldTotal =parseInt(document.getElementById('couponTotal').value)
               {{!-- alert(response.total) --}}
-							let discount = oldTotal - parseInt(response.total)+parseInt(DeliveryCharges)
+							let discount = oldTotal - parseInt(response.total)
               {{!-- alert(response.discountpers) --}}
               let discountpercentag=parseInt(response.discountpers)
-              alert(response.total)
-              document.getElementById('totalwithCoupon').innerHTML = '₹' + response.total
+              {{!-- alert(response.total) --}}
+              document.getElementById('totalwithCoupon').innerHTML = "Rs." + response.total
               document.getElementById('discountedPrice').value = discount
 							{{!-- document.getElementById('discount').innerHTML = '₹' + discount --}}
               document.getElementById('discoAmountpercentage').value=discountpercentag
               {{!-- document.getElementById('paidAmount').innerHTML ='₹' + (parseInt(response.total))   --}}
            {{!-- alert('RRRRRRRRRRRRRRRRRRRR') --}}
-    alert(response.total)
+    {{!-- alert(response.total) --}}
               document.getElementById('MainTotal').value = response.total
               {{!-- document.getElementById('amountToBePaid').value =(parseInt(response.total)) --}}
 							$("#discountspan").html(parseInt(discount))

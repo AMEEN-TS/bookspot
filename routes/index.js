@@ -493,7 +493,7 @@ router.post("/couponApply", async (req, res) => {
     if (response.success) {  
       res.json({
         couponSuccess: true,
-        total: response.total + DeliveryCharges,
+        total: response.total ,
         discountpers: response.discoAmountpercentage,
       });
     } else if (response.couponUsed) {
