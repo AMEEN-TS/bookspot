@@ -1,4 +1,4 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <section class="h-100 gradient-custom pb-5">
   <div class="container  ">
     <div class=" pb-5">
@@ -19,38 +19,55 @@
                     <img src="/image_upload/{{pro_Id.image.[0].image1}}"
                       class="img-fluid" alt="Phone">
                   </div>
-                  <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0">{{this.pro_Id.Product_Name}}</p>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0">{{this.pro_Id.productname}}</p>
                   </div>
                   
                   <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
                     <p class="text-muted mb-0 small">Qty:{{this.quantity}}</p>
                   </div>
-                  {{!-- <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
+                  <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
                     <p class="text-muted mb-0 small">₹{{this.subTotal}}</p>
-                  </div> --}}
+                  </div>
                  
                  
                   <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
                     <p class="text-muted mb-0 small">status : <span style="color:orangered"> {{this.status}}</span></p>
                   </div>
-                  {{#if orderCancelled}}
-                  {{else}}
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <form method="post" action="/admin/changeOrderStatus" id="statusForm">
+                  {{!-- {{#if orderCancelled}} --}}
+                  {{!-- {{else}} --}}
+                  <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                    {{!-- <form  id="statusForm">
                                             
-                                            <select class="form-control" id="exampleFormControlSelect1" name="orderStatus" >
-                                                <option>Status</option>
-                                                <option>Ordered</option>
-                                                <option>Shipped</option>
-                                                <option>Delivered</option>
+                                            <select class="form-control" id="orderStatus" name="orderStatus" >
+                                                <option value="{{this.status}}">{{this.status}}</option>
+                                                <option value="Ordered">Ordered</option>
+                                                <option value="Shipped">Shipped</option>
+                                                <option value="Delivered">Delivered</option>
                                             </select>
                                             <input type="text" name="orderId" value="{{../order._id}}" hidden>
                                             <input type="text" name="proId" value="{{this._id}}" hidden>
-                                            <a><button type="submit" class="btn" style="background-color:rgb(231, 219, 219)" href="#">Change</button></a>
-                    </form>
+                                          <button type="submit" class="btn" style="background-color:rgb(231, 219, 219)">Change</button>
+                    </form> --}}
+                    <form method="post" action="/admin/changeOrderStatus" class=" d-flex justify-content-center align-items-center">
+            
+                            <select class="form-control ms-2" id="exampleFormControlSelect1" name="orderStatus">
+                                <option>Status</option>
+                                <option>Ordered</option>
+                                <option>Shipped</option>
+                                <option>Out for Delivery</option>
+                                <option>Delivered</option>
+                                <option>Cancelled</option>
+            
+                            </select>
+                            <input type="text" name="orderId" value="{{../order._id}}" hidden>
+                            <input type="text" name="proId" value="{{this._id}}" hidden>
+                            <a><button type="submit" class="btn btn-success ms-2" 
+                                    href="#">Change</button></a>
+            
+                        </form>
                   </div>
-                  {{/if}}
+                  {{!-- {{/if}} --}}
                 </div>
                 <hr class="mb-4" style="background-color: #e0e0e0; opacity: 0;">
                 <div class="row d-flex align-items-center">
@@ -64,7 +81,7 @@
 
             <div class="d-flex justify-content-between pt-2">
               <p class="fw-bold mb-0"><span style="color:#83b1d0;">Order Details</span></p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Subtotal : </span> ₹ {{order.Total}}</p>
+              <p class="text-muted mb-0"><span class="fw-bold me-4">Net Total : </span> ₹ {{order.Total}}</p>
             </div>
 
             <div class="d-flex justify-content-between">
@@ -74,17 +91,55 @@
               <p class="text-muted mb-0"><span class="fw-bold me-4">Shipping Charge : </span> ₹ {{order.ShippingCharge}}</p>
             </div>
             <div class="d-flex justify-content-between ">
-             
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Coupon Discount : </span> ₹ {{order.coupondiscountedPrice}}</p>
-            </div>
-            <div class="d-flex justify-content-between ">
               <p class="text-muted mb-0"><span class="fw-bold me-4">Grand Total : </span> ₹ {{order.grandTotal}}</p>
             </div>
+            <div class="d-flex justify-content-between ">
+             
+              <p class="text-muted mb-0"><span class="fw-bold me-4">Coupon Discount : </span> ₹ {{order.discountedPrice}}</p>
+            </div>
+            
           </div>
           <div class="card-footer border-0 px-4 py-5 "
             style="background-color: #628d95; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
             <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-              paid: <span class="h2 mb-0 ms-2">₹{{order.grandTotal}}</span></h5>
+              paid: <span class="h2 mb-0 ms-2">₹{{order.mainTotal}}</span></h5>
+
+             {{!-- <div class="d-flex justify-content-between pt-2">
+              <p class="fw-bold mb-0"><span style="color:black;">shipping Address</span></p>
+              
+            </div>
+             <div class="d-flex justify-content-between">
+              <p class="text-muted mb-0 " style="color:black;"><span class="fw-bold me-4" style="color:black;">house :</span> {{order.deliveryDetails.house}}</p>   
+            </div>  --}}
+
+            <div class="col-lg-12 col-lx-4 mt-4">
+          <div class="single_confirmation_details">
+            {{!-- <h4>shipping Address</h4> --}}
+            <ul>
+              {{!-- <li>
+                <p>Name</p><span>: {{orderProducts.deliveryDetails.name}}</span>
+              </li> --}}
+              {{!-- <li>
+                <p>Phone</p><span>: {{orderProducts.deliveryDetails.number}}</span>
+              </li> --}}
+              {{!-- <li>
+                <p>Email</p><span>: {{orderProducts.deliveryDetails.email}}</span>
+              </li> --}}
+              <li style="color:black;">
+                <p>Address</p><span>:{{order.deliveryDetails.house}},</span><br>
+                <span>{{order.deliveryDetails.localplace}}</span>
+                {{!-- <span>{{order.deliveryDetails.town}},</span> --}}
+                <span>{{order.deliveryDetails.district}},</span>
+                <span>{{order.deliveryDetails.state}},</span>
+                 <span>{{order.deliveryDetails.pincode}}</span>
+              </li>
+              {{!-- <li>
+                <p>PINcode</p><span>: {{orderProducts.deliveryDetails.pincode}}</span>
+              </li> --}}
+            </ul>
+          </div>
+        </div>
+              
           </div>
             </div>
         </div>
@@ -94,24 +149,29 @@
 </section>
         </div>
         </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        
 <script>
-			$("#statusForm").submit((e) => {
-        alert(':;;;')
+		
+
+
+$("#statusForm").submit((e) => {      
 				e.preventDefault()
 				$.ajax({
 					url: '/admin/changeOrderStatus',
 					method: 'post',
 					data: $('#statusForm').serialize(),
-					success: (Response) => {
-                        
-						if (Response.modified) {
-							location.reload()
-						} else {
-							alert('not changed')
-						}
+					success: (response) => {                                
+						if (response){
+          location.href = '/admin/order'
+        }else{
+          alert("fjhdffjkj")
+        }
 					}
 
 				})
 			})
 
 </script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

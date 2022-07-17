@@ -30,6 +30,9 @@ const orderSchema = new mongoose.Schema({
   grandTotal: { type: Number, default: 0 },
   ordered_on: { type: Date },
   payment_status: { type: String },
+  mainTotal:{type:Number},
+  discountedPrice:{type:Number},
+
 });
 const orderModel = mongoose.model("order", orderSchema);
 module.exports = orderModel;

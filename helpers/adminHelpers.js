@@ -299,8 +299,9 @@ module.exports={
     },
 
     changeOrderStatus: (data) => {
+      console.log(data);
       return new Promise(async (resolve, reject) => {
-        const state = await  orderModel.findOneAndUpdate(
+        const state = await orderModel.findOneAndUpdate(
           { _id: data.orderId, "product._id": data.proId },
           {
             $set: {
@@ -308,10 +309,13 @@ module.exports={
             },
           }
         );
+        console.log(state, "state");
+  
         resolve();
+      }).catch((err) => {
+        console.log(err, "errrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
       });
     },
-
     salesReport: (data) => {
       let response = {};
       let { startDate, endDate } = data;

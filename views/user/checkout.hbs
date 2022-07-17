@@ -1,22 +1,22 @@
- <link rel="stylesheet" href="/aranoz/css/bootstrap.min.css">
+ <link rel="stylesheet" href="aranoz/css/bootstrap.min.css">
   <!-- animate CSS -->
-  <link rel="stylesheet" href="/aranoz/css/animate.css">
+  <link rel="stylesheet" href="aranoz/css/animate.css">
   <!-- owl carousel CSS -->
-  <link rel="stylesheet" href="/aranoz/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="aranoz/css/owl.carousel.min.css">
   <!-- nice select CSS -->
-  <link rel="stylesheet" href="/aranoz/css/nice-select.css">
+  <link rel="stylesheet" href="aranoz/css/nice-select.css">
   <!-- font awesome CSS -->
-  <link rel="stylesheet" href="/aranoz/css/all.css">
+  <link rel="stylesheet" href="aranoz/css/all.css">
   <!-- flaticon CSS -->
-  <link rel="stylesheet" href="/aranoz/css/flaticon.css">
-  <link rel="stylesheet" href="/aranoz/css/themify-icons.css">
+  <link rel="stylesheet" href="aranoz/css/flaticon.css">
+  <link rel="stylesheet" href="aranoz/css/themify-icons.css">
   <!-- font awesome CSS -->
-  <link rel="stylesheet" href="/aranoz/css/magnific-popup.css">
+  <link rel="stylesheet" href="aranoz/css/magnific-popup.css">
   <!-- swiper CSS -->
-  <link rel="stylesheet" href="/aranoz/css/slick.css">
-  <link rel="stylesheet" href="/aranoz/css/price_rangs.css">
+  <link rel="stylesheet" href="aranoz/css/slick.css">
+  <link rel="stylesheet" href="aranoz/css/price_rangs.css">
   <!-- style CSS -->
-  <link rel="stylesheet" href="/aranoz/css/style.css">
+  <link rel="stylesheet" href="aranoz/css/style.css">
   {{!-- font awesome --}}
 
   <script src="https://kit.fontawesome.com/a04c146c8c.js" crossorigin="anonymous"></script>
@@ -158,7 +158,7 @@
                     <li>
                       <a href="#">{{this.pro_Id.productname}}
                         <span class="middle">x {{this.quantity}} </span>
-                        <span class="last">Rs. {{this.subTotal}}</span>
+                        <span class="last">Rs. {{this.price}}</span>
 
                       </a>
                     </li>
@@ -194,7 +194,123 @@
                         <span> Rs. {{grandTotal}}</span>
                       </a>
                     </li>
+                    <li>
+
+                      <a href="#">Final
+                        <span id="totalwithCoupon"> Rs. {{grandTotal}}</span>
+                      </a>
+                    </li>
+                     <div class="col-md-12 form-group" hidden>
+                      <input type="text" class="form-control" id="discountedPrice" name="discountedPrice" value="0" hidden/>
+                    </div>
+                    <div class="col-md-12 form-group" hidden>
+                      <input type="text" class="form-control" id="DeliveryCharges" name="DeliveryCharges" value="{{deliveryCharge}}" hidden/>
+                    </div>
+                   
+      
+            
+                    <div class="col-md-12 form-group" hidden>
+                      <input type="text" class="form-control" id="couponName" name="couponName" value="No Coupon Applied"  hidden   />   
+                     <div class="col-md-12 form-group" hidden>
+                      <input type="number" class="form-control" id="MainTotal" name="mainTotal"  value="{{grandTotal}}" hidden/>
+                     
+                    </div>
+                 
+                     <div class="col-md-12 form-group" hidden>
+                      <input type="number" class="form-control" id="discoAmountpercentage" name="discoAmountpercentage"  value="0" hidden/>
+                    </div>
+
+                   
+                     {{!-- <li>
+                      <a href="#">FINAL
+                        <span id="totalwithCoupon"> ₹ {{grandTotal}}</span>
+                      </a>
+                    </li> --}}
                   </ul>
+
+                  <div class="flex-w flex-m w-full-sm mt-3 md-6   ">
+<button type="button" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4  " style="height:40px ;" data-toggle="modal" data-target="#exampleModalCenter">
+														Get New Coupon
+													  </button>
+													<h6 class="mt-3">Enter your coupon code if you have one.</h6>
+													
+													<input type="text" class="form-control" name="coupon"
+														id="couponInput" autocapitalize="on" placeholder="Coupon Code" />
+													<input type="text" id="couponTotal" name="total" class="sizefull s-text7 p-l-22 p-r-22" 
+														value="{{grandTotal}}" hidden>
+                            	 <input type="text" id="MainTotal" name="MainTotal" class="sizefull s-text7 p-l-22 p-r-22" 
+														  value="{{grandTotal}}" hidden>
+
+
+             </div>     
+             <a id="couponBtn" onclick="couponApply()"
+														class="btn flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 text-white text-center  mt-2 btn btn-primary "
+														style="width: 100%;text-decoration: none;">Apply
+														Coupon</a>
+                                 <!-- Error handling of coupons  -->            
+													<div class="mt-3">
+														<div class="alert alert-danger" style="display: none;"
+															id="couponUsed" role="alert">
+															This Coupon was redeemed
+														</div>
+														<div class="alert alert-danger" style="display: none;"
+															id="couponInvalid" role="alert">
+															This Coupon is
+															invalid
+														</div>
+														<div class="alert alert-success" style="display: none;"
+															id="couponSuccess" role="alert">
+															Coupon Applied
+															Successfully
+														</div>
+														<div class="alert alert-warning" style="display: none;"
+															id="couponExpired" role="alert">
+															Sorry!!! Your
+															Coupon has been Expired
+														</div>
+														
+														<div class="alert alert-warning" style="display: none;"
+															id="couponMaxLimit" role="alert">
+															Sorry!!! Your
+															Coupon Has Reached Maximum Limit
+														</div>
+													</div>
+                              {{!-- modal management --}}
+                      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+              
+              <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">All Available Coupons</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                 </div>
+              {{#each AllCoupons }}
+              <div class="modal-body">
+                <div class="row ">
+                  <div class="col-12 ">
+                  <input type="text" name="" id="{{this._id}}" value="{{this.coupon}}"  hidden >
+                
+                  <div class="card">
+                    <div class="card-body">
+                    <h1 class="card-title">{{this.couponCode}}</h1>
+                    <p class="card-text">You Can get <span style="color:red"> {{this.discount}}%</span> Discount for this Coupon</p>
+                    <p>Expired on : {{this.expirationTime}}</p>
+                    <button type="button" onclick="copyFunction('{{this.couponCode}}')" class="btn btn-primary copy-button">Copy</button>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+                
+              {{/each}}
+              <div class="modal-footer"></div>
+              
+              </div>
+            </div>
+            </div>
+                  
 
 
                   {{!-- <p>Please select your Payment Method:</p>
@@ -346,6 +462,130 @@
 				
       }
     </script> 
+
+
+
+  <script>
+			function couponApply() {
+        alert("coupon")
+				let couponCode = document.getElementById('couponInput').value
+				let couponTotal = document.getElementById('couponTotal').value
+        let DeliveryCharges=document.getElementById('DeliveryCharges').value
+        document.getElementById('couponName').value=couponCode
+		
+				$.ajax({
+					url: '/couponApply',
+					data: {
+						coupon: couponCode,
+						total: couponTotal,
+            DeliveryCharges:DeliveryCharges
+					},
+					method: 'post',
+					success: (response) => {
+            alert(response)
+						if (response.couponSuccess) {  
+							let oldTotal =parseInt(document.getElementById('couponTotal').value)
+              {{!-- alert(response.total) --}}
+							let discount = oldTotal - parseInt(response.total)+parseInt(DeliveryCharges)
+              {{!-- alert(response.discountpers) --}}
+              let discountpercentag=parseInt(response.discountpers)
+              alert(response.total)
+              document.getElementById('totalwithCoupon').innerHTML = '₹' + response.total
+              document.getElementById('discountedPrice').value = discount
+							{{!-- document.getElementById('discount').innerHTML = '₹' + discount --}}
+              document.getElementById('discoAmountpercentage').value=discountpercentag
+              {{!-- document.getElementById('paidAmount').innerHTML ='₹' + (parseInt(response.total))   --}}
+           {{!-- alert('RRRRRRRRRRRRRRRRRRRR') --}}
+    alert(response.total)
+              document.getElementById('MainTotal').value = response.total
+              {{!-- document.getElementById('amountToBePaid').value =(parseInt(response.total)) --}}
+							$("#discountspan").html(parseInt(discount))
+							$('#discountspan').show()
+							$('#discountLabel').show()
+							$('#discounttd').show()
+							$('#newTotal').show()
+							$('#tdTotal').show()
+							$('#totalOriginal').show() 
+		
+							document.getElementById('grandTotal').innerHTML = '₹'+ response.total
+							$('#couponSuccess').show()
+							$('#couponUsed').hide()
+							$('#couponInvalid').hide()
+							$('#couponExpired').hide()
+							$('#couponMaxLimit').hide()
+						}
+		
+						if (response.couponUsed) {
+            
+							$('#couponUsed').show()
+							$('#couponSuccess').hide()
+							$('#couponInvalid').hide()
+							$('#couponExpired').hide()
+							$('#discountspan').hide()
+							$('#discountLabel').hide()
+							$('#couponMaxLimit').hide()
+						}
+						if (response.invalidCoupon) {
+							$('#couponInvalid').show()
+							$('#couponSuccess').hide()
+							$('#couponUsed').hide()
+							$('#couponExpired').hide()
+							$('#discountspan').hide()
+							$('#discountLabel').hide()
+							$('#couponMaxLimit').hide()
+						}
+						if (response.couponExpired) {
+							$('#couponExpired').show()
+							$('#couponSuccess').hide()
+							$('#couponInvalid').hide()
+							$('#couponUsed').hide()
+							$('#discountspan').hide()
+							$('#discountLabel').hide()
+							$('#couponMaxLimit').hide()
+						}
+						if (response.couponMaxLimit) {
+							$('#couponMaxLimit').show()
+							$('#couponExpired').hide()
+							$('#couponSuccess').hide()
+							$('#couponInvalid').hide()
+							$('#couponUsed').hide()
+							$('#discountspan').hide()
+							$('#discountLabel').hide()
+						}
+					}
+				})
+			}
+		</script>
+
+
+
+
+    <script>
+        function copyFunction(couponId) {
+  
+    var copyText = document.getElementById(couponId); copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+
+    $(".copy-button").on("click", function (e) {
+      e.preventDefault();
+      var self = $(this);
+      console.log(self.data("title"));
+      Swal.fire({
+        position: 'top-center',
+        icon: 'success',
+        title: 'Coupon Copied ' + "'" + copyText.value + "'",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    })
+  }
+</script>
+
+
+
+
+    {{!-- -------------------------------------------------------------------------------------------------------- --}}
   
   {{!-- razorpay --}}
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

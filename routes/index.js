@@ -302,6 +302,7 @@ router.get("/checkout",async(req,res)=>{
   const netTotal = totalAmount.grandTotal.total;
   const deliveryCharge = await userHelpers.deliveryCharge(netTotal);
   const grandTotal = await userHelpers.grandTotal(netTotal, deliveryCharge);
+  const AllCoupons = await adminHelpers.getAllCoupons()
   res.render("user/checkout",{
     Addresses,
     netTotal,
@@ -310,14 +311,17 @@ router.get("/checkout",async(req,res)=>{
     subTotal,
     user,
     cartItems,
+    AllCoupons,
   })
 });
 router.post("/placeOrder", async (req, res) => {
+
   const cartItem = await userHelpers.getCartItems(req.session.user._id);
   const totalAmount = await userHelpers.totalAmount(req.session.user._id);
   const netTotal = totalAmount.grandTotal.total;
   const deliveryCharge = await userHelpers.deliveryCharge(netTotal);
   const grandTotal = await userHelpers.grandTotal(netTotal, deliveryCharge);
+  const mainTotal=parseInt(req.body.mainTotal)
   userHelpers
     .placeOrder(
       req.body,
@@ -335,7 +339,7 @@ router.post("/placeOrder", async (req, res) => {
         console.log("++");
         res.json({ codSuccess: true });
       } else {
-        userHelpers.createRazorpay(orderId, grandTotal).then((response) => {
+        userHelpers.createRazorpay(orderId, mainTotal).then((response) => {
           res.json(response);
         });
       }
@@ -476,7 +480,33 @@ router.get("/product",async(req,res)=>{
   let user = req.session.user;
   const products = await adminHelpers.getProducts();
   res.render("user/shop",{products,user})
-})
+});
+
+router.post("/couponApply", async (req, res) => {
+  console.log(req.body)
+  DeliveryCharges = parseInt(req.body.DeliveryCharges);
+  let todayDate = new Date().toISOString().slice(0, 10);
+  let userId = req.session.user._id;
+  userHelpers.validateCoupon(req.body, userId).then((response) => {
+    console.log(response)
+    req.session.couponTotal = response.total;
+    if (response.success) {  
+      res.json({
+        couponSuccess: true,
+        total: response.total + DeliveryCharges,
+        discountpers: response.discoAmountpercentage,
+      });
+    } else if (response.couponUsed) {
+      res.json({ couponUsed: true });
+    } else if (response.couponExpired) {
+      res.json({ couponExpired: true });
+    } else if (response.couponMaxLimit) {
+      res.json({ couponMaxLimit: true });
+    } else {
+      res.json({ invalidCoupon: true });
+    }
+  });
+});
 
 
 

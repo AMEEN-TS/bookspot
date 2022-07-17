@@ -409,6 +409,8 @@ module.exports={
     })
     }, 
     placeOrder:(order,cartItem,grandTotal,deliveryCharge,netTotal,user)=>{
+      // console.log(order.mainTotal);
+      const mainTotal=parseInt(order.mainTotal)
       return new Promise(async(resolve,reject)=>{       
        const status=order.paymentMethod==='cod'?'placed':'pending' 
       //  const status=order.paymentMethod==='cod'?'placed':'pending'
@@ -417,6 +419,8 @@ module.exports={
        const orderObj=await orderModel({
          user_Id:user._id,
          Total:netTotal,
+         mainTotal:mainTotal,
+     discountedPrice:order.discountedPrice,
          ShippingCharge:deliveryCharge,
          grandTotal:grandTotal,
          payment_status:status, 
@@ -450,7 +454,8 @@ module.exports={
        })    
     })
   },
-  createRazorpay:(orderid,grandTotal)=>{  
+  createRazorpay:(orderid,grandTotal)=>{ 
+     
     console.log(orderid);   
     return new Promise((resolve,reject)=>{ 
       instance.orders.create({
@@ -724,6 +729,58 @@ module.exports={
       } else {
         let count = 0;
         resolve(count);
+      }
+    });
+  },
+
+  validateCoupon: (data, userId) => {
+    return new Promise(async (resolve, reject) => {
+      console.log(data.coupon);
+      obj = {};
+      const coupon = await couponmodel.findOne({ couponCode: data.coupon });
+      if (coupon) {
+        if (coupon.limit > 0) {
+          checkUserUsed = await couponmodel.findOne({
+            couponCode: data.coupon,
+            usedUsers: { $in: [userId] },
+          });
+          if (checkUserUsed) {
+            obj.couponUsed = true;
+            obj.msg = " You Already Used A Coupon";
+            console.log(" You Already Used A Coupon");
+
+            resolve(obj);
+          } else {
+            let nowDate = new Date();
+            date = new Date(nowDate);
+            if (date <= coupon.expirationTime) {
+              await couponmodel.updateOne(
+                { couponCode: data.coupon },
+                { $push: { usedUsers: userId } }
+              );
+              await couponmodel.findOneAndUpdate(
+                { couponCode: data.coupon },  
+                { $inc: { limit: -1 } }
+              );
+              let total = parseInt(data.total);
+              let percentage = parseInt(coupon.discount);
+              let discoAmount = ((total * percentage) / 100).toFixed();
+              obj.discoAmountpercentage = percentage;
+              obj.total = total - discoAmount;
+              obj.success = true;
+              resolve(obj);
+            } else {
+              obj.couponExpired = true;
+              resolve(obj);
+            }
+          }
+        } else {
+          obj.couponMaxLimit = true;
+          resolve(obj);
+        }
+      } else {
+        obj.invalidCoupon = true;
+        resolve(obj);
       }
     });
   },

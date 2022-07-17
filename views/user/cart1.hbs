@@ -1,11 +1,10 @@
-	<!-- Shoping Cart -->
-	{{#if cartCount }}
+<!-- Shoping Cart -->
 	<form class="bg0 p-t-75 p-b-85">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart">
+						<div class="table-shopping-cart">
 							<table class="table-shopping-cart">
 								<tr class="table_head">
 									<th class="column-1">Product</th>
@@ -85,18 +84,7 @@
 							</table>
 						</div>
 
-						{{!-- <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-							<div class="flex-w flex-m m-r-20 m-tb-5">
-								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
-									
-								<div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-									Apply coupon
-								</div>
-							</div>
-
-							
-							
-						</div> --}}
+						
 					</div>
 				</div>
                    
@@ -168,26 +156,60 @@
 			</div>
 		</div>
 	</form> 
-	{{else}}
-
-	<section class="cart bgwhite p-t-70 p-b-100">
+	<!-- Footer -->
+	<footer class="bg3 p-t-75 p-b-32" style="width:auto">
 		<div class="container">
-<div class="card m-auto text-center" style="width: 20rem; border:0px">
-  <img src="\images\Book_spot\clipart129459.png" class="card-img-top  m-auto" style="width: 6rem;" alt="...">
-  <div class="card-body">
-    <h4 class="card-title font-weight-bold">Your Cart is Empty</h4>
-    <p class="card-title font-weight-bold" >Add something to make me happy :)</p>
-    <a href="/" class="btn btn-primary">continue shopping</a>
-  </div>
-</div>
+			<div class="row">
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30 mx-4">
+						Categories
+					</h4>
+                    {{#each products}}
+					<ul>
+						<li class="p-b-10">
+							<div class="stext-107 cl7 hov-cl1 trans-04">
+							{{this.Category.Category}}
+							</div>
+						</li>
+					</ul>
+					{{/each}}	
+				</div>
+				<div class="col-sm-6 col-lg-3 p-b-50 ">
+					<h4 class="stext-301 cl0 p-b-30 mx-4">
+						Brands
+					</h4>
+                      {{#each product}}
+					<ul>
+						<li class="p-b-10">
+							<div class="stext-107 cl7 hov-cl1 trans-04">
+								 {{this.Brand.Brand_Name}}
+							</div>
+						</li>
+					</ul>
+					{{/each}}
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						GET IN TOUCH
+					</h4>
+
+					<p class="stext-107 cl7 size-201">
+						Any questions? Let us know in MyKitchen Center 8th floor, SDF building,Kakkancheri, Malappuram
+					</p>	
+				</div>
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Newsletter
+					</h4>
+
+					<p class="stext-107 cl7 size-201">
+						mykitchen323@gmail.com
+					</p>
+				</div>
+			</div>
 		</div>
- </section>
-{{/if}}
-{{!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script> --}}
-{{!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> --}}
-
-
+	</footer>
 	  <script>
       function changeQuantity(cartid, proId, quantity, count) {
         $.ajax({

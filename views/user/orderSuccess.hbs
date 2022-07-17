@@ -137,6 +137,7 @@
                   <th scope="col" colspan="2">Product</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Total</th>
+                 
                 </tr>
               </thead>
 
@@ -145,15 +146,30 @@
                 <tr>
                   <th colspan="2"><span>{{pro_Id.productname}}</span></th>
                   <th>{{this.quantity}}</th>
-                  <th> <span>Rs. {{this.subTotal}}</span></th>
+                  <th> <span>Rs. {{this.price}}</span></th>
+                   
                 </tr>
 
                 {{/each}}
               </tbody>
-              <tfoot>
+              <tfoot >
+                <tr >
+                  <th>Subtotal: Rs. {{orderProducts.Total}}</th>
+                </tr>
                 <tr>
                   
-                  <th scope="col">Grand Total : Rs. {{orderProducts.grandTotal}}</th>
+                  <th scope="col">Shipping Charge : Rs. {{orderProducts.ShippingCharge}}</th>
+                  </tr>
+                  <tr>
+                  <th scope="col">Total : Rs. {{orderProducts.grandTotal}}</th>
+                  </tr>
+                       <tr>
+                  <th scope="col">discounted Price : Rs. {{orderProducts.discountedPrice}}</th>
+                  </tr>
+                  <tr>
+                  <th scope="col">Grand Total : Rs. {{orderProducts.mainTotal}}</th>
+                  </tr>
+
                   
                   <th scope="col"><a class="btn_3" href="/orderPage">More details</a></th>
                 </tr> 

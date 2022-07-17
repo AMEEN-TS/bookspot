@@ -288,11 +288,12 @@ router.get("/order", (req, res) => {
     });
   });
 
-  router.post("/changeOrderStatus", (req, res) => {
-    adminHelpers.changeOrderStatus(req.body).then((response) => {
-      res.json({ modified: true });
-    });
-  });
+  router.post('/changeOrderStatus',(req,res)=>{
+    console.log('inside change')
+    adminHelpers.changeOrderStatus(req.body).then((response)=>{
+      res.redirect('/admin/order')
+    })
+  })
 
   router.post("/getData", async (req, res) => {
     const date = new Date(Date.now());
