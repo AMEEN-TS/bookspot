@@ -29,11 +29,13 @@ router.get('/', async function (req, res, next) {
   let user = req.session.user;
   const products = await adminHelpers.getProducts();
   let cartCount = null;
+  let wishlistcount= null;
   if (user) {
    cartCount =await userHelpers.getCartCount(req.session.user._id);
+   wishlistcount = await userHelpers.getwishlistcount(user._id);
   }
   
-  res.render('user/index', { user,products,cartCount });
+  res.render('user/index', { user,products,cartCount,wishlistcount });
 });
 
 router.get('/login', function (req, res, next) {
@@ -475,12 +477,91 @@ router.get("/orderTracking/:id",(req,res)=>{
     res.render("user/trackOrder",{user,order,ordered_on})
   })
 });
-router.get("/product",async(req,res)=>{
-  console.log("**")
-  let user = req.session.user;
-  const products = await adminHelpers.getProducts();
-  res.render("user/shop",{products,user})
+// router.get("/product",async(req,res)=>{
+//   console.log("**")
+//   let user = req.session.user;
+//   const products = await adminHelpers.getProducts();
+//   res.render("user/shop1",{products,user})
+// });
+
+router.get("/product", (req, res) => {
+  adminHelpers.getProducts().then(async (products) => {
+    filterResult = products;
+
+    res.redirect("/filterPage");
+  });
 });
+
+router.get("/filterPage", async (req, res) => {
+  let cartCount = "";
+  let wishlistcount="";
+  let user = req.session.user;
+  if (user) {
+    cartCount = await userHelpers.getCartCount(req.session.user._id);
+     wishlistcount = await userHelpers.getwishlistcount(user._id);
+  }
+  let category = await userHelpers.allcategory();
+  // let brands = await userHelpers.allbrands();
+  res.render("user/shop1", {
+    filterResult,
+    category,
+    // brands,
+    cartCount,
+    wishlistcount,
+    user,
+    
+  });
+});
+
+// router.post("/search-filter", (req, res) => {
+//   console.log("nnnnnnnnnnnnnnnn")
+//   let a = req.body;
+//   let price = parseInt(a.Prize);
+//   // let brandFilter = a.brand;
+//   let categoryFilter = a.category;
+//   // for (let i of a.brand) {
+//   //   brandFilter.push({ 'brand': i })
+//   // }
+//   // for (let i of a.category) {
+//   //   categoryFilter.push({ 'category': i })
+//   // }
+//   userHelpers.searchFilter( categoryFilter, price).then((result) => {
+//     filterResult = result;
+//     console.log(filterResult)
+//     res.json({ status: true });
+//   });
+// });
+
+router.post("/search-filter",(req,res)=>{
+  console.log("*******")
+  let a = req.body;
+  let categoryFilter = a.category
+  userHelpers.searchfilter(categoryFilter).then((result)=>{
+    filterResult = result;
+    res.json({status:true})
+  })
+
+});
+
+router.post("/search", async (req, res) => {
+  let key = req.body.key;
+  userHelpers.getSearchProducts(key).then((response) => {
+    filterResult = response;
+    res.redirect("/filterPage");
+    // res.json(response)
+    // filterResult = response
+    // res.redirect('/filterPage')
+  });
+});
+
+
+
+
+
+
+
+
+
 
 router.post("/couponApply", async (req, res) => {
   console.log(req.body)

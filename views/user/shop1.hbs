@@ -1,0 +1,343 @@
+
+	
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/user1/images/icons/favicon.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/fonts/themify/themify-icons.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/fonts/elegant-font/html-css/style.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/vendor/slick/slick.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/vendor/noui/nouislider.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/user1/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/user1/css/main.css">
+<!--===============================================================================================-->
+<script src="/user1/js/ajaxscript.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://fontawesome.com/v4.7.0/assets/font-awesome/css/font-awesome.css">
+
+
+
+	<!-- Header -->	
+
+	<!-- Header -->
+
+
+	<!-- Header -->
+
+	<!-- Header -->
+	
+	<!-- Title Page -->
+	{{!-- <section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(/user/images/wp2134855-downhill-mountain-bike.jpg);">
+		<h2 class="l-text2 t-center">
+			Shop
+		</h2>
+	</section> --}}
+	<!-- Content page -->
+	<section class="bgwhite p-t-20 p-b-65">
+		<div class="container">
+			<div class="row">
+				<div class="container ">
+    <div class=""> 
+    <div class="row ">
+        <aside class=" col-md-3">
+            <form id="filter" method="post">
+                <div class="card">
+                    <article class="filter-group">
+                         <div class="wrap-dropdown-content bo7 p-t-15 p-b-1 p-r-10 p-l-10">
+						<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
+						Category
+						<i class="down-mark fs-12 color1 fa fa-minus dis-none" aria-hidden="true"></i>
+						<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
+						</h5>
+					 <div class="dropdown-content dis-none p-t-15 p-b-15 ps-3">
+						  <label class="custom-control ">
+                                    <input type="radio" class="custom-control-input" value=""
+                                        name="category">
+                                    <div class="custom-control-label">All
+                                    </div>
+                                </label>
+               {{#each category}}
+                                <label class="custom-control ">
+                                    <input type="radio" class="custom-control-input" value="{{this._id}}"
+                                        name="category">
+                                    <div class="custom-control-label">{{this.category}}
+                                    </div>
+                                </label>
+                                {{/each}}										
+</ul>
+                        </div>
+                    </article>
+                    <!-- filter-group  .// -->
+                    	{{!-- <article class="filter-group">
+                        <div class="wrap-dropdown-content bo7 p-t-15 p-b-1 p-r-10 p-l-10">
+						<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
+						Brands
+						<i class="down-mark fs-12 color1 fa fa-minus dis-none" aria-hidden="true"></i>
+						<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
+						</h5>
+							 <div class="dropdown-content dis-none p-t-15 p-b-15 ps-3">
+									 <label class="custom-control ">
+                                    <input type="radio" class="custom-control-input" value=""
+                                        name="brand">
+                                    <div class="custom-control-label">All
+                                    </div>
+                                </label>
+                                 {{#each brands}}
+
+                                <label class="custom-control ">
+                                    <input type="radio" class="custom-control-input" value="{{this._id}}"
+                                        name="brand">
+                                    <div class="custom-control-label">{{this.BrandName}}
+                                    </div>
+                                </label>
+                                {{/each}}
+                        </div>
+						</div>
+                    </article> --}}
+                    <!-- filter-group .// -->
+                    {{!-- <article class="filter-group">
+                       <div class="wrap-dropdown-content bo7 p-t-15 p-b-1 p-r-10 p-l-10">
+						<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
+						Price range
+						<i class="down-mark fs-12 color1 fa fa-minus dis-none" aria-hidden="true"></i>
+						<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
+						</h5>
+ 							<div class="dropdown-content dis-none ps-3">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="radio" class="custom-control-input" value="100" name="Prize">
+                                        <div class="custom-control-label">Under 100
+                                        </div>
+                                    </label>
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="radio" class="custom-control-input" value="200" name="Prize">
+                                        <div class="custom-control-label">Under 200
+                                        </div>
+                                    </label>
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="radio" class="custom-control-input" value="500" name="Prize">
+                                        <div class="custom-control-label">Under 500
+                                        </div>
+                                    </label>
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="radio" class="custom-control-input" value="1000" name="Prize">
+                                        <div class="custom-control-label">Under 1000
+                                        </div>
+                                    </label>
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="radio" class="custom-control-input" value="2000" name="Prize">
+                                        <div class="custom-control-label">Under 2000
+                                        </div>
+                                    </label>
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="radio" class="custom-control-input" name="Prize" value="4000" hidden
+                                            checked>
+                                   </label>
+                       </div>
+                    </article> --}}
+                </div>
+            </form>
+        </aside>
+        <main class="col-md-9">
+             <header class="border-bottom mb-4 pb-3">
+                <div class="search-product pos-relative bo4 of-hidden">
+					<form class="d-flex justify-content-between" id="search" action="/search" method="post"> 
+                   
+							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="key" placeholder="Search Products..." required>
+
+							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4" >
+								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
+							</button>
+					</form>
+				</div>
+            </header>
+      <div class="container pt-1 ">
+				{{#if filterResult}}
+				<div class="row justify-content-around"  id="products">
+					
+                    {{#each filterResult}}
+					<!-- single product -->
+					<div class="col-sm-12 col-md-6 col-lg-4 p-b-50 d-flex justify-content-around" style="height: 285px;height: 399px;">
+							<!-- Block2 -->
+							<div class="block2">
+								<div class="block2-img wrap-pic-w of-hidden pos-relative" style="height: 245px;width: 245px">
+									 <img src="/image_upload/{{this.image.[0].image1}}">
+									<div class="block2-overlay trans-0-4">
+									{{!-- <a href="#"  --}}
+									<button onclick="addTowishlist('{{this._id}}')"
+									class="block2-btn-addwishlist hov-pointer trans-0-4">
+										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+									</button>
+
+									<div class="block2-btn-addcart w-size1 trans-0-4">
+										<!-- Button -->
+									       <button onclick="add_to_cart('{{this._id}}')" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+											Add to Cart
+										</button>	
+									</div>
+								</div>
+								</div>
+								<div class="block2-txt p-t-20 " style="height:100px ;width: 255px ;">
+								<a href="/product-details/{{this._id}}" class="block2-name dis-block s-text3 p-b-5 font-weight-bold">
+									{{this.productname}}
+								</a>
+								<span class="block2-price m-text6 p-r-5 font-weight-bold">
+									 ₹  {{ this.price}}
+								</span>
+								{{!-- <span class="block2-price m-text6 p-r-5 font-weight-lighter" style="color: #d3d3d3;">
+									 ₹ <s>{{this.mrp}}</s>
+								</span> --}}
+								{{!-- <span class="block2-price p-r-5 font-weight-lighter" style="color: rgb(38, 165, 65); font-size: 15px;">
+									{{this.Discount}} % off
+								</span> --}}
+							</div>
+							</div>
+						</div>
+                    {{/each}}	
+				</div>
+				{{else}}
+				<div class="justify-content-center">
+				<img src="https://www.itinerantnotes.com/blog-theme/images/empty.gif" alt="" srcset="" style="height: 210px;width: 370px;">
+
+				</div>
+				{{/if}}
+			</div>
+    </div>
+    </main>
+</div>
+</div>
+			</div>
+		</div>
+	</section>
+	<!-- Footer -->
+	
+	<!-- Back to top -->
+	<div class="btn-back-to-top bg0-hov" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+		</span>
+	</div>
+	<!-- Container Selection -->
+	<div id="dropDownSelect1"></div>
+	<div id="dropDownSelect2"></div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/bootstrap/js/popper.js"></script>
+	<script type="text/javascript" src="/user1/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/select2/select2.min.js"></script>
+	<script type="text/javascript">
+		$(".selection-1").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect2')
+		});
+	</script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="/user1/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/slick/slick.min.js"></script>
+	<script type="text/javascript" src="/user1/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/sweetalert/sweetalert.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="/user1/vendor/noui/nouislider.min.js"></script>
+	<script type="text/javascript">
+		/*[ No ui ]
+	    ===========================================================*/
+	    var filterBar = document.getElementById('filter-bar');
+	    noUiSlider.create(filterBar, {
+	        start: [ 50, 200 ],
+	        connect: true,
+	        range: {
+	            'min': 50,
+	            'max': 200
+	        }
+	    });
+	    var skipValues = [
+	    document.getElementById('value-lower'),
+	    document.getElementById('value-upper')
+	    ];
+	    filterBar.noUiSlider.on('update', function( values, handle ) {
+	        skipValues[handle].innerHTML = Math.round(values[handle]) ;
+	    });
+	</script>
+	<script>
+       $('input[name=brand]').change(function() {
+    $.ajax({
+        url: '/search-filter',  
+        method: "post",
+        data: $('#filter').serialize(),
+        success: (isResult) => {
+            
+            if (isResult) {
+                $('#products').load(location.href + " #products");
+            }
+        }
+    })
+  });
+   $('input[name=Prize]').change(function() {  
+    $.ajax({
+        url: '/search-filter',  
+        method: "post",
+        data: $('#filter').serialize(),
+        success: (isResult) => {
+            
+            if (isResult) {
+                $('#products').load(location.href + " #products");
+            }
+        }
+    })
+  });
+   $('input[name=category]').change(function() {
+    
+    $.ajax({
+        url: '/search-filter',  
+        method: "post",
+        data: $('#filter').serialize(),
+        success: (isResult) => {
+            
+            if (isResult) {
+                $('#products').load(location.href + " #products");
+            }
+        }
+    })
+
+  });
+</script>
+<!--===============================================================================================-->
+	<script src="/user1/js/main.js"></script>
+    
+
+

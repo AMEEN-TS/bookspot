@@ -15,7 +15,8 @@ const instance = new Razorpay({
   key_secret:process.env.RAZORPAY_KEY,
 });
 const orderModel = require("../models/order");
-const  moment = require('moment');  
+const  moment = require('moment'); 
+const categorymodel = require("../models/category"); 
 
 
 const wishlistmodel = require("../models/wishlist");
@@ -672,7 +673,7 @@ module.exports={
     })   
   },
 
-  searchFilter: (brandFilter, categoryFilter, price) => {
+  searchFilter: ( categoryFilter, price) => {
     return new Promise(async (resolve, reject) => {
       let result;
       if (brandFilter && categoryFilter) {
@@ -683,10 +684,10 @@ module.exports={
             $match: { Brand: brandid },
           },
           {
-            $match: { Category: categoryid },
+            $match: { category: categoryid },
           },
           {
-            $match: { Price: { $lt: price } },
+            $match: { price: { $lt: price } },
           },
         ]);
       } else if (brandFilter) {
@@ -703,16 +704,16 @@ module.exports={
         let categoryid = mongoose.Types.ObjectId(categoryFilter);
         result = await productData.aggregate([
           {
-            $match: { Category: categoryid },
+            $match: { category: categoryid },
           },
           {
-            $match: { Price: { $lt: price } },
+            $match: { price: { $lt: price } },
           },
         ]);
       } else {
         result = await productData.aggregate([
           {
-            $match: { Price: { $lt: price } },
+            $match: { price: { $lt: price } },
           },
         ]);
       }
@@ -784,6 +785,70 @@ module.exports={
       }
     });
   },
+
+  allcategory: () => {
+    return new Promise(async (resolve, reject) => {
+      const allcategory = await categorymodel.find({}).lean();
+      resolve(allcategory);
+    });
+  },
+
+  searchFilter: ( categoryFilter, price) => {
+    return new Promise(async (resolve, reject) => {
+      let result;
+      console.log(categoryFilter)
+      console.log("kkkkkkkkkkkkkkkkkkkkkkkkkk")
+       if (categoryFilter) {
+        let categoryid = mongoose.Types.ObjectId(categoryFilter);
+        result = await productData.aggregate([
+          {
+            $match: { category: categoryid },
+          },
+          {
+            $match: { price: { $lt: price } },
+          },
+        ]);
+      } else {
+        result = await productData.aggregate([
+          {
+            $match: { price: { $lt: price } },
+          },
+        ]);
+      }
+      resolve(result);
+    });
+  },
+
+  searchfilter:(categoryFilter)=>{
+    console.log(categoryFilter)
+     return new Promise (async(resolve,reject)=>{
+     let result;  
+     const categoryid = mongoose.Types.ObjectId(categoryFilter)
+     result = await productData.aggregate([
+         {
+           $match:{category:categoryid}
+         }
+       ])
+       resolve(result);
+     })
+
+   },
+
+   getSearchProducts: (key) => {
+    return new Promise(async (resolve, reject) => {
+      const products = await productData
+        .find({
+          $or: [
+            { productname: { $regex: new RegExp("^" + key + ".*", "i") } },
+            // { Brand: { $regex: new RegExp("^" + key + ".*", "i") } },
+            // { Category: { $regex: new RegExp("^" + key + ".*", "i") } },
+          ],
+        })
+        .lean();
+      resolve(products);
+    });
+  },
+
 
 
 }
