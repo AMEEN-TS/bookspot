@@ -222,6 +222,7 @@ router.post("/RPass", async (req, res) => {
 router.get("/productDetail1/:id",async(req,res)=>{
   const user = req.session.user
   let product = await userHelpers.getSingleProduct(req.params.id)
+  
   res.render("user/productDetail",{product,user})
 });
 router.get("/add-tocart/:id", verifyLogin, (req, res) => {
