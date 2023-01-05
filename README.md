@@ -37,46 +37,46 @@ After you've set these environmental variables in the .env file at the root of t
 
 Now you can run npm start in the terminal and the application should work.
 
-Technology
+#Technology
 The application is built with:
 
-Node.js
-Node mailer
-MongoDB
-Express
-Bootstrap
-AJAX
-JQuery
-Razorpay
-SweetAlert
-Deployed in AWS EC2 instance with Nginx reverse proxy
+*Node.js
+*Node mailer
+*MongoDB
+*Express
+*Bootstrap
+*AJAX
+*JQuery
+*Razorpay
+*SweetAlert
+*Deployed in AWS EC2 instance with Nginx reverse proxy
 
-Features
+#Features
 The application displays a virtual cycle store that contains virtual products and its information.
 
 Users can do the following:
 
-Login and signup with OTP verification using node mailer -Through otp verification, the user can manage forgotten passwords
-Products can be viewed from landing page with categories and Offer price
-User can Add product to wish list
-User can view single product details
-Cart with subtotal and grand Total
-Can Add multiple address including shipping address
-Category wise render of all products
-Product search also needed products can be filtered out
-Payment Gateway is integrated with RAZOR PAY
-User can apply coupen before final billing
-User can track the purchased products
-The user can cancel the purchased products and the payment is refundable
-Status update of tracking is showed on order details
-Admins can do the following:
+*Login and signup with OTP verification using node mailer -Through otp verification, the user can manage forgotten passwords
+*Products can be viewed from landing page with categories and Offer price
+*User can Add product to wish list
+*User can view single product details
+*Cart with subtotal and grand Total
+*Can Add multiple address including shipping address
+*Category wise render of all products
+*Product search also needed products can be filtered out
+*Payment Gateway is integrated with RAZOR PAY
+*User can apply coupen before final billing
+*User can track the purchased products
+*The user can cancel the purchased products and the payment is refundable
+*Status update of tracking is showed on order details
+*Admins can do the following:
 
 Admin login with pre defined credentials
-Admin Dashboard is implemented with sales report and brand report
-Admin can handle user block , unblock and delete
-Can add product and change product details
-Can add category and sub categories
-Admin can manage order details and product details
+*Admin Dashboard is implemented with sales report and brand report
+*Admin can handle user block , unblock and delete
+*Can add product and change product details
+*Can add category and sub categories
+*Admin can manage order details and product details
 License
 License
 
